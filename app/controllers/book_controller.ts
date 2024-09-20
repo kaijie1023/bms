@@ -6,7 +6,7 @@ import {
   updateBookValidator
 } from '#validators/book_validator'
 
-export default class BooksController {
+export default class BookController {
   /**
    * Display a list of resource
    */
