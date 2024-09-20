@@ -1,4 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import redis from '@adonisjs/redis/services/main'
 import Book from '#models/book'
 import {
   listBookValidator,
@@ -54,7 +55,17 @@ export default class BookController {
    * Show individual record
    */
   async show({ params }: HttpContext) {
-    return await Book.findOrFail(params.id)
+    const bookId = params.id
+
+    // Check if the book is cached
+    let cachedBook = await redis.get(`book_${bookId}`)
+    if (cachedBook) {
+      return JSON.parse(cachedBook)
+    }
+
+    const book = await Book.findOrFail(params.id)
+    await redis.set(`book_${bookId}`, JSON.stringify(book))
+    return book
   }
 
   /**
