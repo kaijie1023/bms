@@ -1,4 +1,16 @@
 import vine from '@vinejs/vine'
+import { minRangeRule } from '#validators/rules/minRange'
+
+export const listBookValidator = vine.compile(
+  vine.object({
+    quantityMin: vine.number().positive().optional(),
+    quantityMax: vine.number().positive().optional().use(
+      minRangeRule({ minField: 'quantityMin' })
+    ),
+    sort: vine.enum(['name', 'quantity', 'published_at']).optional(),
+    sortDir: vine.enum(['asc', 'desc']).optional(),
+  })
+)
 
 /**
  * Validates the book's creation action
