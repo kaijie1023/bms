@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "b5b0c6b9-74ea-46ee-b071-bb3f36831678",
+		"name": "BMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SignIn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var res = pm.response.json();",
+							"pm.collectionVariables.set('access_token', res.token);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"virk@adonisjs.com\",\n    \"password\": \"secret\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3333/signin",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3333/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "horizon",
+							"disabled": true
+						},
+						{
+							"key": "author",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "isbn",
+							"value": "123456",
+							"disabled": true
+						},
+						{
+							"key": "quantityMin",
+							"value": "-41",
+							"disabled": true
+						},
+						{
+							"key": "quantityMax",
+							"value": "6",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "published_at",
+							"disabled": true
+						},
+						{
+							"key": "sortDir",
+							"value": "desc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Beneath the Stars\",\n    \"author\": \"Elena White\",\n    \"isbn\": \"978-1-4028-9462-7\",\n    \"quantity\": 6,\n    \"publisher\": \"StarBound Publishing\",\n    \"published_at\": \"2022-10-01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3333/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book show",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3333/books/4",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"books",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"The Infinite Loop\",\n    \"author\": \"Michael Rogers\",\n    \"isbn\": \"978-3-16-148410-0\",\n    \"quantity\": 6,\n    \"publisher\": \"Tech Books Publishing\",\n    \"published_at\": \"2022-10-01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3333/books/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3333/books/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
