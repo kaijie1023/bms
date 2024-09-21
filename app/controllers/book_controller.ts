@@ -4,7 +4,7 @@ import Book from '#models/book'
 import {
   listBookValidator,
   createBookValidator,
-  updateBookValidator
+  updateBookValidator,
 } from '#validators/book_validator'
 
 export default class BookController {
@@ -14,12 +14,9 @@ export default class BookController {
   async index({ request }: HttpContext) {
     await request.validateUsing(listBookValidator)
 
-    const { 
-      name, author, isbn, quantityMin, quantityMax, sort, sortDir
-    } = request.qs()
+    const { name, author, isbn, quantityMin, quantityMax, sort, sortDir } = request.qs()
 
-    return await Book
-      .query()
+    return await Book.query()
       .if(name, (query) => {
         query.where('name', 'like', `%${name}%`)
       })

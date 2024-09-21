@@ -13,7 +13,6 @@ import { middleware } from '#start/kernel'
 const SessionController = () => import('#controllers/session_controller')
 const BookController = () => import('#controllers/book_controller')
 
-
 router.get('/', async () => {
   return {
     hello: 'world',
@@ -30,6 +29,4 @@ router
     router.put('books/:id', [BookController, 'update'])
     router.delete('books/:id', [BookController, 'destroy'])
   })
-  .use(middleware.auth({
-    guards: ['api']
-  }))
+  .use(middleware.auth({ guards: ['api'] }))

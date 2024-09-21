@@ -5,12 +5,7 @@ type Options = {
   minField: string
 }
 
-function minRange(
-  value: unknown,
-  options: Options,
-  field: FieldContext
-) {
-
+function minRange(value: unknown, options: Options, field: FieldContext) {
   if (typeof value !== 'number') {
     return
   }

@@ -10,4 +10,4 @@ class LogService {
   }
 }
 
-export default new LogService();
+export default new LogService()
