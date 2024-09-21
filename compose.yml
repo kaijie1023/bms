@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - '${DB_PORT}:3306'
+
+  db_test:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bms_test
+      MYSQL_USER: bms_user
+      MYSQL_PASSWORD: bms_password
+    volumes:
+      - db_test_data:/var/lib/mysql
+    ports:
+      - '33063:3306'
+
+  redis:
+    image: redis:7
+    ports:
+      - '${REDIS_PORT}:6379'
+
+volumes:
+  db_data:
+  db_test_data:
